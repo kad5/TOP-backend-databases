@@ -1,0 +1,158 @@
+*** brain storming ***
+
+//core:
+Cities > Restuarants
+
++/-
+  upload pics?
+  maps?
+
+search by
+  > country
+  > food category
+  > pricing
+  > user reviews
+
+user actions
+  > request delete of category (city) or restaurant
+  > request adding a city or a restaurant
+  > post review (edit, request delete review)
+
+
+pages
+
++ the main page
+    > featured 1 restaurant (based on user location)
+    > top restaurans in your city
+    > explore the world > other cities
+    > search in here
+
++ a country page  (all location specific)
+    > featured 1 restaurant (based on user location)
+    > top restaurans in your city
+    > explore the country  > other cities
+    > search in here
+
++ a city page (all location specific)
+    > featured 1 restaurant (based on user location)
+    > top restaurans in your city
+    > explore the country > other cities
+    > search in here
+
++ a restaurant page
+    location: city, country
+    cousine type
+    pricing
+    revierws and stars
+
+
+things to research
+> uploading pics by users ? not now
+> fetching location via IP
+> google maps api for showing restaurant location
+
+=============================================================================
+
+*** db ***
+
+Restaurants Table:
+id, name, city_id, pricing, food_category, location, overall stars
+
+Cities Table:
+id, name, country_id
+
+Countries Table:
+id, name
+
+Reviews Table:
+id, restaurant_id, review_stars, review, reviewer_name, likes, dislikes
+
+suggestions table:
+id, related_to, suggestion
+
+=============================================================================
+
+*** backend ***
+
+npm: 
+express, express async handler, dotenv, ejs, pg
+
+routes:
+main : get
+search : post (by choice) > onload send json to frontend of all cities names + ids , all counties + id, all restaurants + ids and return query
+country : get, post (a delete suggestion)
+city : get, post ( a delete suggestion)
+restaurant : get, post (modification, or delete)
+restarurant/review: get all reviews, get write review, post a review, put a review
+about/ get
+
+controls:
+api fetching
+sugestion storing into db
+error handling
+
+db queries:
+select restarant name and stars and city by country
+select restarant name and stars by city
+select restarant name and stars by cousine
+select restarant name and stars by pricing
+select restarant name and stars by stars
+select restaurant row by name
+
+selecct all reviews by restarurant name
+insert into reviews 
+update a review
+
+for admin only (will not add)
+delete from able: review, restaurant, city
+
+
+=============================================================================
+
+*** frontend ***
+
+on load temp arrays for fast search
+
+main page:
+logo
+featured restaurant banner
+nearme section
+cousine options fsat look up
+expolore section (random city in random country)
+
+city or country page:
+featured restaurant banner
+nearme section
+cousine options fsat look up
+expolore section (random city in random country)
+
+restaurant page:
+location
+large photo
+info ( cousine, pricing)
+reviews
+google map 
+
+=============================================================================
+assets
+
+cuisine : 
+  chinese
+  Japanese
+  Indian
+  Filipino
+  Indonesian
+  Pakistani
+
+  Italian
+  French
+  Turkish
+  British
+
+  Lebanese
+  Persian 
+  Egyptian
+syrian
+
+mexican
+american
