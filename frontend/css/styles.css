@@ -61,6 +61,12 @@ p {
 .s-btn {
 }
 
+.container {
+  margin: auto;
+  width: min(1280px, 100%);
+  padding-inline: 0.5rem;
+}
+
 .wrapper {
   margin: auto;
   height: 100vh;
@@ -278,5 +284,46 @@ h1 span {
   }
   .search input::placeholder {
     font-size: 1rem;
+  }
+}
+
+/**/
+
+header {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+hr {
+  border: 3px solid #0062ff81;
+}
+
+.card-container {
+  margin-block: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.card {
+  cursor: pointer;
+  background-color: hsl(0, 0%, 98%);
+  padding: 2.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0px 2px #0062ff81;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  img {
+    mix-blend-mode: darken;
   }
 }
