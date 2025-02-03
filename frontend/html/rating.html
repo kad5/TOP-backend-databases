@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Rating Widget</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Star Rating Styles */
+      * {
+        margin: 0;
+      }
+      .star-rating {
+        display: flex;
+        font-size: 30px;
+        color: #ccc;
+        cursor: pointer;
+      }
+
+      .star-rating .star {
+        padding: 5px;
+      }
+
+      .star-rating .filled {
+        color: gold;
+      }
+
+      .star-rating .star:hover {
+        color: #ffcc00;
+        scale: 1.25;
+      }
+
+      .star-rating .star.selected {
+        color: gold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="star-rating" id="star-rating">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <p>Your rating : <span id="rating-value">0</span></p>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".star");
+        const ratingValue = document.getElementById("rating-value");
+        let currentRating = 0;
+
+        // Function to highlight stars on hover
+        function highlightStars(index) {
+          stars.forEach((star, idx) => {
+            if (idx < index) {
+              star.classList.add("filled");
+            } else {
+              star.classList.remove("filled");
+            }
+          });
+        }
+
+        // Event listeners for hovering over the stars
+        stars.forEach((star) => {
+          star.addEventListener("mouseenter", function () {
+            const value = parseInt(star.getAttribute("data-value"), 10);
+            highlightStars(value);
+          });
+
+          // Reset stars on mouse leave
+          star.addEventListener("mouseleave", function () {
+            highlightStars(currentRating);
+          });
+
+          // Click to set the rating
+          star.addEventListener("click", function () {
+            currentRating = parseInt(star.getAttribute("data-value"), 10);
+            ratingValue.textContent = currentRating;
+            highlightStars(currentRating);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
