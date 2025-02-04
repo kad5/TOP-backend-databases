@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>The Foodin Project</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <div class="logo-container">
+          <img src="/assets/logo.png" alt="logo" height="250px" width="250px" />
+          <h1>The Fo<span>odin</span> Project</h1>
+          <p>Your gateway to the best restaurants around the globe!</p>
+        </div>
+        <form class="search">
+          <input
+            type="text"
+            required
+            placeholder="search by a city or country"
+          />
+          <button class="l-btn">Find</button>
+        </form>
+      </div>
+      <div class="line">
+        <div class="logos">
+          <div class="logo_items">
+            <img src="/assets/american" />
+            <img src="/assets/British.jpg" />
+            <img src="/assets/chinese.jpg" />
+            <img src="/assets/Egyptian.jpg" />
+            <img src="/assets/Filipino.jpg" />
+            <img src="/assets/French.jpg" />
+            <img src="/assets/indian.jpg" />
+            <img src="/assets/Indonesian.jpg" />
+            <img src="/assets/Italian.jpg" />
+            <img src="/assets/japanese.jpg" />
+            <img src="/assets/Lebanese.jpg" />
+            <img src="/assets/mexican.jpg" />
+            <img src="/assets/Pakistani.jpg" />
+            <img src="/assets/Persian.jpg" />
+            <img src="/assets/syrian.jpg" />
+            <img src="/assets/Turkish.jpg" />
+          </div>
+          <div class="logo_items">
+            <img src="/assets/american.jpg" />
+            <img src="/assets/British.jpg" />
+            <img src="/assets/chinese.jpg" />
+            <img src="/assets/Egyptian.jpg" />
+            <img src="/assets/Filipino.jpg" />
+            <img src="/assets/French.jpg" />
+            <img src="/assets/indian.jpg" />
+            <img src="/assets/Indonesian.jpg" />
+            <img src="/assets/Italian.jpg" />
+            <img src="/assets/japanese.jpg" />
+            <img src="/assets/Lebanese.jpg" />
+            <img src="/assets/mexican.jpg" />
+            <img src="/assets/Pakistani.jpg" />
+            <img src="/assets/Persian.jpg" />
+            <img src="/assets/syrian.jpg" />
+            <img src="/assets/Turkish.jpg" />
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="showcase">
+          <span>Featured restaurant</span>
+          <h2><%= featuredRes.name %></h2>
+          <div class="rating">rating : <%= featuredRes.overall_stars %></div>
+          <a class="m-btn" href="/<%= featuredRes.id %>">Visit restaurant</a>
+        </div>
+        <div class="showcase">
+          <span>Featured city</span>
+          <h2><%= featuredCity.name %></h2>
+          <div class="rating"><%= resCount %> restaurants</div>
+          <a class="m-btn" href="/<%= featuredCity.id %>">Look around</a>
+        </div>
+        <div class="showcase">
+          <span>All cities</span>
+          <h2>Explore the world</h2>
+          <div class="rating"><%= citynum %> cities</div>
+          <a class="m-btn" href="/explore">Explore</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

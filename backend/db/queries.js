@@ -1,5 +1,61 @@
 const pool = require("./pool");
 
+async function getMain() {
+  try {
+    const randomRes = await pool.query(
+      `SELECT * FROM restaurants ORDER BY RANDOM() LIMIT 1`
+    );
+    const featuredRes = randomRes ? randomRes.rows[0] : null;
+
+    const randomCity = await pool.query(
+      `SELECT * FROM cities ORDER BY RANDOM() LIMIT 1`
+    );
+
+    const featuredCity = randomCity ? randomCity.rows[0] : null;
+
+    const resNum = await pool.query(
+      `SELECT COUNT(*) FROM restaurants WHERE city_id = $1`,
+      [featuredCity.id]
+    );
+    const resCount = resNum.rows[0].count;
+
+    const citynum = await pool.query(`SELECT COUNT(*) FROM cities;`);
+
+    return { featuredRes, featuredCity, resCount, citynum };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getAll() {
+  try {
+    const allCities = await pool.query(`SELECT * FROM cities`);
+    return allCities.rows;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fetchEach(city) {
+  try {
+    const resNums = await pool.query(
+      `SELECT COUNT(*) FROM restaurants WHERE city_id = $1`,
+      [city.id]
+    );
+    const resCount = resNums.rows[0].count;
+
+    const countryRow = await pool.query(
+      `SELECT name FROM country WHERE id = $1`,
+      [city.country_id]
+    );
+    const country = countryRow.rows[0].name;
+
+    return { resCount, country };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function citySearch(city) {
   try {
     const { id, name, country_id } = city;
@@ -150,6 +206,9 @@ async function dislike(reviewId) {
 }
 
 module.exports = {
+  getMain,
+  getAll,
+  fetchEach,
   searchTables,
   restaurant,
   reviews,

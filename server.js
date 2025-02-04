@@ -6,15 +6,14 @@ const errorHandler = require("./backend/errors/errorHandler");
 const app = express();
 
 // ejs
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "backend", "views"));
 app.set("view engine", "ejs");
 
 // parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // frontend handling
-const assetsPath = path.join(__dirname, "frontend");
-app.use(express.static(assetsPath));
+app.use(express.static(path.join(__dirname, "frontend")));
 
 app.use("/", router);
 app.use(errorHandler);

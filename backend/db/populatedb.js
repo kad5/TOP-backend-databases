@@ -54,15 +54,6 @@ CREATE TABLE IF NOT EXISTS reviews (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
 );
-
-
-//
-INSERT INTO messages (id, text, username, added) 
-VALUES
-  ('a1', 'I love bananas!', 'Queen Elizzabeth II', 'January 11, 2025'),
-  ('a2', 'Im not very great', 'Alexander the Great.', 'January 12, 2025'),
-  ('a3', 'CR7','Speed' ,'January 15, 2025'),
-  ('a4', 'Hi Hi :)','Adam' ,'January 22, 2025');
 `;
 
 async function main() {
