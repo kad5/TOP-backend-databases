@@ -14,9 +14,9 @@ async function citySearch(city) {
     );
 
     const countryName = countryRes.rows[0]?.name;
-    const restaurantsArr = restaurantsRes.rows;
+    const restaurants = restaurantsRes.rows;
 
-    return { id, type: "city", name, countryName, restaurantsArr };
+    return { id, type: "city", name, countryName, restaurants };
   } catch (error) {
     console.log(error);
   }

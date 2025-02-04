@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Explore</title>
+    <title>Explore <%= response.name %></title>
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body>
@@ -11,109 +11,30 @@
       <header>
         <h2>The Fooding Project</h2>
       </header>
-      <h1>Explore The World!</h1>
-      <br />
-      <div class="controls">
-        <label for="dropdown">sort by:</label>
-        <select id="dropdown" name="dropdown">
-          <option value="rating">rating</option>
-          <option value="pricing">pricing</option>
-          <option value="nearby">city</option>
-        </select>
-      </div>
+      <h1>Explore <%= response.name %></h1>
       <br />
       <hr />
       <div class="card-container">
+        <% response.restaurants.forEach(function(rest) { %>
         <div class="card">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
+          <h2><%= rest.name %></h2>
+          <p><%= rest.location %></p>
           <img
-            src="../assets/British.jpg"
-            alt=""
+            src="../assets/<%= rest.food_category %>.jpg"
+            alt="<%= rest.name %> image"
             width="100px"
             height="100px"
           />
-          <p>British Cuisine</p>
+          <p><%= rest.food_category %> Cuisine</p>
           <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
+            <img
+              src="../assets/ratings/rating-<%= rest.overall_stars %>.png"
+              alt="Rating: <%= rest.overall_stars %> stars"
+              height="25px"
+            />
           </div>
         </div>
-        <a class="card" href="">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
-          <img
-            src="../assets/British.jpg"
-            alt=""
-            width="100px"
-            height="100px"
-          />
-          <p>British Cuisine</p>
-          <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
-          </div>
-        </a>
-        <div class="card">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
-          <img
-            src="../assets/British.jpg"
-            alt=""
-            width="100px"
-            height="100px"
-          />
-          <p>British Cuisine</p>
-          <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
-          </div>
-        </div>
-        <div class="card">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
-          <img
-            src="../assets/British.jpg"
-            alt=""
-            width="100px"
-            height="100px"
-          />
-          <p>British Cuisine</p>
-          <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
-          </div>
-        </div>
-        <div class="card">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
-          <img
-            src="../assets/British.jpg"
-            alt=""
-            width="100px"
-            height="100px"
-          />
-          <p>British Cuisine</p>
-          <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
-          </div>
-        </div>
-        <div class="card">
-          <h2>MA7al Ta3meya</h2>
-          <p>123 st G road</p>
-          <span>Cairo</span>
-          <img
-            src="../assets/British.jpg"
-            alt=""
-            width="100px"
-            height="100px"
-          />
-          <p>British Cuisine</p>
-          <div>
-            <img src="../assets/ratings/rating-20.png" alt="" height="25px" />
-          </div>
-        </div>
+        <% }); %>
       </div>
     </div>
   </body>
