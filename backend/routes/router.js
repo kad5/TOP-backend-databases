@@ -4,10 +4,10 @@ const { Router } = require("express");
 const router = Router();
 
 router.get("/", (req, res) => res.send("home"));
-router.post("/:id", (req, res) => res.send("location page from search"));
-router.get("/:id/reviews", (req, res) => res.send("all reviews"));
-router.post("/:id/addReview", (req, res) => res.send("review added"));
-router.post("/:id/:revirewLiked", (req, res) => res.send("review liked"));
-router.post("/:id/:revirewDisliked", (req, res) => res.send("review disliked"));
+router.post("/:id", controller.searchDb);
+router.get("/:id/reviews", controller.getReviews);
+router.post("/:id/addReview", controller.addReview);
+router.post("/:id/:revirew", controller.likeReview);
+router.post("/:id/:revirew", controller.dislikeReview);
 
 module.exports = router;
