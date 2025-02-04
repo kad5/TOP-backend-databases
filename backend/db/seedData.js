@@ -1,9 +1,8 @@
 #! /usr/bin/env node
-
+require("dotenv").config();
 const { Client } = require("pg");
-const faker = require("faker");
+const { faker } = require("@faker-js/faker"); // Updated import
 
-// Connection string using environment variables (ensure to have dotenv configured)
 const client = new Client({
   connectionString: process.env.dbString,
 });
@@ -48,7 +47,7 @@ async function createRestaurant(
 async function createReview(restaurant_id) {
   const review_stars = Math.floor(Math.random() * 5) + 1;
   const review = faker.lorem.sentence();
-  const reviewer_name = faker.name.findName();
+  const reviewer_name = faker.person.fullName(); // Updated method
   const likes = Math.floor(Math.random() * 100);
   const dislikes = Math.floor(Math.random() * 100);
 
@@ -113,7 +112,7 @@ async function populateDatabase() {
     // Populate cities for each country
     const cities = Array.from(
       { length: 2 + Math.floor(Math.random() * 4) },
-      () => faker.address.city()
+      () => faker.location.city() // Updated method
     );
     for (let city of cities) {
       const city_id = await createCity(city, country_id);
@@ -121,19 +120,28 @@ async function populateDatabase() {
       // Populate restaurants for each city
       const numRestaurants = Math.floor(Math.random() * 6) + 4; // between 4 and 10 restaurants per city
       for (let j = 0; j < numRestaurants; j++) {
-        const restaurant_name = faker.company.companyName();
+        const restaurant_name = faker.company.name(); // Updated method
         const pricing = (Math.random() * 50 + 10).toFixed(2); // Random price between 10 and 60
-        const food_category = faker.random.arrayElement([
-          "Italian",
+        const food_category = faker.helpers.arrayElement([
+          // Updated method
+          "american",
+          "British",
           "Chinese",
-          "Indian",
-          "Mexican",
-          "Japanese",
+          "Egyptian",
+          "Filipino",
           "French",
-          "Mediterranean",
-          "American",
+          "Indian",
+          "Indonesian",
+          "Italian",
+          "Japanese",
+          "Lebanese",
+          "Mexican",
+          "Pakistani",
+          "Persian",
+          "syrian",
+          "Turkish",
         ]);
-        const location = faker.address.streetAddress();
+        const location = faker.location.streetAddress(); // Updated method
 
         const restaurant_id = await createRestaurant(
           restaurant_name,
@@ -157,6 +165,7 @@ async function populateDatabase() {
 }
 
 populateDatabase().catch((err) => {
+  console.log(process.env.dbPassword);
   console.error("Error during seeding:", err);
   client.end();
 });

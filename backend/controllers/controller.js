@@ -3,8 +3,9 @@ const asyncHandler = require("express-async-handler");
 const queries = require("../db/queries");
 
 const loadMain = asyncHandler(async (req, res) => {
-  const { featuredRes, featuredCity, citynum } = await db.getMain();
-  res.render("main", { featuredRes, featuredCity, citynum });
+  const { featuredRes, featuredCity, resCount, citynum } = await db.getMain();
+  console.log({ featuredRes, featuredCity, resCount, citynum });
+  res.render("main", { featuredRes, featuredCity, resCount, citynum });
 });
 
 const explore = asyncHandler(async (req, res) => {

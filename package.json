@@ -11,11 +11,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@faker-js/faker": "^9.4.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-async-handler": "^1.2.0",
-    "faker": "^6.6.6",
     "pg": "^8.13.1"
   }
 }
