@@ -70,6 +70,10 @@ id, restaurant_id, review_stars, review, reviewer_name, likes, dislikes
 suggestions table:
 id, related_to, suggestion
 
+
+temp frontend bds:
+-sorted review array
+-cities and countires names
 =============================================================================
 
 *** backend ***
@@ -128,31 +132,29 @@ expolore section (random city in random country)
 
 restaurant page:
 location
-large photo
 info ( cousine, pricing)
 reviews
-google map 
 
 =============================================================================
 assets
 
-cuisine : 
+rating
+likes dislikes
+
+cuisine icons : 
   chinese
   Japanese
   Indian
   Filipino
   Indonesian
   Pakistani
-
   Italian
   French
   Turkish
   British
-
   Lebanese
   Persian 
   Egyptian
-syrian
-
-mexican
-american
+  syrian
+  mexican
+  american
