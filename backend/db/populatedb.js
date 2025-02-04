@@ -1,23 +1,6 @@
 #! /usr/bin/env node
-
+require("dotenv").config();
 const { Client } = require("pg");
-
-/*
-Restaurants Table:
-id, name, city_id, pricing, food_category, location, overall stars
-
-Cities Table:
-id, name, country_id
-
-Countries Table:
-id, name
-
-Reviews Table:
-id, restaurant_id, review_stars, review, reviewer_name, likes, dislikes
-
-suggestions table:
-id, related_to, suggestion
-*/
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS countries (
