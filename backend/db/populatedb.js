@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   reviewer_name VARCHAR(255),
   likes INTEGER,
   dislikes INTEGER,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
 );
 

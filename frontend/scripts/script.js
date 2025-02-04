@@ -1,6 +1,7 @@
 const dialog = document.querySelector("dialog");
 const openBtn = dialog.nextElementSibling;
 const wrapper = document.querySelector("form");
+const ratingInput = document.getElementById("rating-input");
 openBtn.addEventListener("click", () => dialog.showModal());
 dialog.addEventListener(
   "click",
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     star.addEventListener("click", function () {
       currentRating = parseInt(star.getAttribute("data-value"), 10);
       ratingValue.textContent = currentRating;
+      ratingInput.value = currentRating;
       highlightStars(currentRating);
     });
   });

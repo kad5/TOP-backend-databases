@@ -1,13 +1,12 @@
 //const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
-const db = require("../db/db.js");
 const queries = require("../db/queries");
 
 const searchDb = asyncHandler(async (req, res) => {
   const { searchTerm } = req.body;
   if (!searchTerm) return;
   const response = await queries.searchTables(searchTerm);
-  res.render("explore", response);
+  res.render("explore", { response });
 });
 
 const getRestaurant = asyncHandler(async (req, res) => {
@@ -15,7 +14,7 @@ const getRestaurant = asyncHandler(async (req, res) => {
   if (!id) return;
   const response = await queries.restaurant(id);
   const reviews = getReviews(req, res);
-  res.render("restaurant_page", response, reviews);
+  res.render("restaurant_page", { response, reviews });
 });
 
 const getReviews = asyncHandler(async (req, res) => {

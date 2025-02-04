@@ -98,6 +98,26 @@ async function addReview(data) {
         (($1), ($2), ($3), ($4))`,
       [id, rating, revBody, revName, 1, 0]
     );
+
+    const restaurantRevs = await reviews(id);
+    if (restaurantRevs) {
+      let totalRating = 0;
+      restaurantRevs.forEach((rev) => {
+        totalRating += rev.review_stars;
+      });
+
+      let averageRating = totalRating / restaurantRevs.length;
+      averageRating = Math.round(averageRating / 5) * 5;
+      if (averageRating > 50) averageRating = 50;
+      if (averageRating < 0) averageRating = 0;
+
+      await pool.query(
+        `UPDATE restaurants
+         SET overall_stars = $1
+         WHERE id = $2`,
+        [averageRating, id]
+      );
+    }
   } catch (err) {
     console.error(err);
   }

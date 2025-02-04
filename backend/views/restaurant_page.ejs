@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= response.name %></title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <script src="../scripts/script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h2>The Fooding Project</h2>
+      </header>
+      <div class="wrapper-2">
+        <div class="left-2">
+          <h1><%= response.name %></h1>
+          <p><%= response.location %></p>
+          <img
+            src="../assets/<%= response.food_category %>.jpg"
+            alt=""
+            width="100px"
+            height="100px"
+          />
+          <p><%= response.food_category %> Cuisine</p>
+          <div>
+            <span>Rating</span>
+            <img
+              src="../assets/ratings/rating-<%= response.overall_stars %>.png"
+              alt=""
+              height="25px"
+            />
+          </div>
+        </div>
+        <div class="right-2">
+          <div>
+            <h2>All reviews</h2>
+            <dialog>
+              <form action="/<%= response.id %>/addReview" method="POST">
+                <h2>Give a review</h2>
+                <input
+                  type="text"
+                  name="revName"
+                  placeholder="your name"
+                  required
+                />
+                <textarea name="revBody" required>your feedback</textarea>
+                <div>
+                  <div class="star-rating" id="star-rating">
+                    <span class="star filled" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                  </div>
+                  <p>Your rating : <span id="rating-value">1</span></p>
+                  <input
+                    type="hidden"
+                    name="rating"
+                    id="rating-input"
+                    value="1"
+                  />
+                </div>
+                <div>
+                  <button type="submit">submit</button>
+                  <button type="reset" onclick="dialog.close()">close</button>
+                </div>
+              </form>
+            </dialog>
+            <button>Post a review</button>
+          </div>
+          <div class="rev">
+            <% reviews.forEach(function(rev1) { %>
+            <div class="message">
+              <span><%= rev1.created_at %></span>
+              <h3><%= rev1.reviewer_name %></h3>
+              <div>
+                <p><%= rev1.review %></p>
+                <div>
+                  <a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      fill="#0061FF"
+                    >
+                      <path
+                        d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5
+              23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4
+              15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174
+              174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"
+                      />
+                    </svg>
+                    <%= rev1.likes %>
+                  </a>
+                  <a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="http://www.w3.org/2000/svg"
+                      width="24px"
+                      fill="#ff0f7b"
+                      transform="rotate(180)"
+                    >
+                      <path
+                        d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"
+                      />
+                    </svg>
+                    <%= rev1.dislikes %>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
