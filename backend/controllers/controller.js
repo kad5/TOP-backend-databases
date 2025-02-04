@@ -1,41 +1,59 @@
 //const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 const db = require("../db/db.js");
+const queries = require("../db/queries");
 
 const searchDb = asyncHandler(async (req, res) => {
   const { searchTerm } = req.body;
   if (!searchTerm) return;
+  const response = await queries.searchTables(searchTerm);
+  res.render("explore", response);
+});
 
-  const searchArray = db.tempList.find((arr) => arr.includes(searchTerm));
-  if (!searchArray) return;
-
-  if (searchArray[2] === "city") res.send("you searched for a city");
-  if (searchArray[2] === "country") res.send("you searched for a country");
+const getRestaurant = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  if (!id) return;
+  const response = await queries.restaurant(id);
+  const reviews = getReviews(req, res);
+  res.render("restaurant_page", response, reviews);
 });
 
 const getReviews = asyncHandler(async (req, res) => {
-  const { restaurant } = req.params;
-  if (!restaurant) return;
-  res.send("all reviews");
+  const { id } = req.params;
+  if (!id) return;
+  return await queries.reviews(id);
 });
 
 const addReview = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  if (!id) return;
   const { revName, revBody, rating } = req.body;
   if (!revName || !revBody || !rating) return;
-  res.send("review added");
+
+  const data = { id, revName, revBody, rating };
+  await queries.addReview(data);
+  return res.redirect(`/restaurants/${id}`);
 });
 
 const likeReview = asyncHandler(async (req, res) => {
-  const { id, revirew } = req.params;
-  if (!id || !revirew) return;
-  res.send(`liked`);
+  const { id, review } = req.params;
+  if (!id || !review) return;
+  await queries.like(review);
+  return res.redirect(`/restaurants/${id}`);
 });
 
 const dislikeReview = asyncHandler(async (req, res) => {
-  const { id, revirew } = req.params;
-  if (!id || !revirew) return;
-  res.send(`disliked`);
+  const { id, review } = req.params;
+  if (!id || !review) return;
+  await queries.dislike(review);
+  return res.redirect(`/restaurants/${id}`);
 });
 
-module.exports = { searchDb, getReviews, addReview, likeReview, dislikeReview };
+module.exports = {
+  searchDb,
+  getRestaurant,
+  getReviews,
+  addReview,
+  likeReview,
+  dislikeReview,
+};
