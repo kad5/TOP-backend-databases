@@ -68,13 +68,15 @@
           <span>Featured restaurant</span>
           <h2><%= featuredRes.name %></h2>
           <div class="rating">rating : <%= featuredRes.overall_stars %></div>
-          <a class="m-btn" href="/<%= featuredRes.id %>">Visit restaurant</a>
+          <a class="m-btn" href="/restaurant/<%= featuredRes.id %>"
+            >Visit restaurant</a
+          >
         </div>
         <div class="showcase">
           <span>Featured city</span>
           <h2><%= featuredCity.name %></h2>
           <div class="rating"><%= resCount %> restaurants</div>
-          <a class="m-btn" href="/<%= featuredCity.id %>">Look around</a>
+          <a class="m-btn" href="/city/<%= featuredCity.id %>">Look around</a>
         </div>
         <div class="showcase">
           <span>All cities</span>

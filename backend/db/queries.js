@@ -19,8 +19,8 @@ async function getMain() {
     );
     const resCount = resNum.rows[0].count;
 
-    const citynum = await pool.query(`SELECT COUNT(*) FROM cities;`);
-
+    const citynumQ = await pool.query(`SELECT COUNT(*) FROM cities;`);
+    const citynum = citynumQ.rows[0].count;
     return { featuredRes, featuredCity, resCount, citynum };
   } catch (error) {
     console.log(error);
@@ -43,13 +43,11 @@ async function fetchEach(city) {
       [city.id]
     );
     const resCount = resNums.rows[0].count;
-
     const countryRow = await pool.query(
-      `SELECT name FROM country WHERE id = $1`,
+      `SELECT name FROM countries WHERE id = $1`,
       [city.country_id]
     );
     const country = countryRow.rows[0].name;
-
     return { resCount, country };
   } catch (error) {
     console.log(error);
@@ -72,9 +70,22 @@ async function citySearch(city) {
     const countryName = countryRes.rows[0]?.name;
     const restaurants = restaurantsRes.rows;
 
-    return { id, type: "city", name, countryName, restaurants };
+    return { id, type: "city", name, restaurants };
   } catch (error) {
     console.log(error);
+  }
+}
+
+async function cityById(id) {
+  try {
+    const cityData = await pool.query(
+      `SELECT * FROM restaurants WHERE city_id = $1`,
+      [id]
+    );
+    if (cityData.rows.length === 0) return;
+    return cityData.rows;
+  } catch (error) {
+    console.error(err);
   }
 }
 
@@ -209,6 +220,7 @@ module.exports = {
   getMain,
   getAll,
   fetchEach,
+  cityById,
   searchTables,
   restaurant,
   reviews,

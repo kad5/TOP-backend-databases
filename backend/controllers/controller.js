@@ -4,18 +4,43 @@ const queries = require("../db/queries");
 
 const loadMain = asyncHandler(async (req, res) => {
   const { featuredRes, featuredCity, resCount, citynum } = await db.getMain();
-  console.log({ featuredRes, featuredCity, resCount, citynum });
   res.render("main", { featuredRes, featuredCity, resCount, citynum });
 });
 
-const explore = asyncHandler(async (req, res) => {
-  const allCitiesQ = await queries.allCities();
-  let allCities = [];
-  allCitiesQ.forEach(async (city) => {
-    const { resCount, country } = await queries.fetchEach(city);
-    allCities.push({ name: city.name, resCount, country });
-  });
+const exploreCities = asyncHandler(async (req, res) => {
+  const allCitiesQ = await queries.getAll();
+  const allCities = await Promise.all(
+    allCitiesQ.map(async (city) => {
+      const { resCount, country } = await queries.fetchEach(city);
+      return { name: city.name, resCount, country };
+    })
+  );
   res.render("explore_city", { allCities });
+});
+
+const city = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  //console.log(cityName, id);
+  const cityData = await queries.cityById(id);
+  const allres = await Promise.all(
+    cityData.map(async (rest) => {
+      const restaurant = await queries.restaurant(rest.id);
+      return {
+        id: restaurant.id,
+        name: restaurant.name,
+        location: restaurant.location,
+        food_category: restaurant.food_category,
+        overall_stars: restaurant.overall_stars,
+      };
+    })
+  );
+  const response = {
+    id,
+    type: "city",
+    name: "city",
+    restaurants: allres,
+  };
+  res.render("explore_res", { response });
 });
 
 const searchDb = asyncHandler(async (req, res) => {
@@ -26,17 +51,19 @@ const searchDb = asyncHandler(async (req, res) => {
 });
 
 const getRestaurant = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  if (!id) return;
+  let { id } = req.params;
+  id = Number(id);
+  if (!id) res.send("error");
   const response = await queries.restaurant(id);
-  const reviews = getReviews(req, res);
+  const reviews = await getReviews(id);
   res.render("restaurant_page", { response, reviews });
 });
 
-const getReviews = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+const getReviews = asyncHandler(async (id) => {
   if (!id) return;
-  return await queries.reviews(id);
+  const reviews = await queries.reviews(id);
+  if (reviews === null) return [];
+  return reviews;
 });
 
 const addReview = asyncHandler(async (req, res) => {
@@ -66,7 +93,8 @@ const dislikeReview = asyncHandler(async (req, res) => {
 
 module.exports = {
   loadMain,
-  explore,
+  exploreCities,
+  city,
   searchDb,
   getRestaurant,
   getReviews,

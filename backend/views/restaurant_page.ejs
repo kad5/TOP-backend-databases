@@ -10,14 +10,14 @@
   <body>
     <div class="container">
       <header>
-        <h2>The Fooding Project</h2>
+        <h2><a href="/">The Fooding Project</a></h2>
       </header>
       <div class="wrapper-2">
         <div class="left-2">
           <h1><%= response.name %></h1>
           <p><%= response.location %></p>
           <img
-            src="../assets/<%= response.food_category %>.jpg"
+            src="/assets/<%= response.food_category %>.jpg"
             alt=""
             width="100px"
             height="100px"
@@ -26,7 +26,7 @@
           <div>
             <span>Rating</span>
             <img
-              src="../assets/ratings/rating-<%= response.overall_stars %>.png"
+              src="/assets/ratings/rating-<%= response.overall_stars %>.png"
               alt=""
               height="25px"
             />
