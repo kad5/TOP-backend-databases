@@ -165,7 +165,6 @@ async function populateDatabase() {
 }
 
 populateDatabase().catch((err) => {
-  console.log(process.env.dbPassword);
   console.error("Error during seeding:", err);
   client.end();
 });
