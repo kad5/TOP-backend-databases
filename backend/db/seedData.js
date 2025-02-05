@@ -101,7 +101,7 @@ async function populateDatabase() {
     "Switzerland",
     "Austria",
     "New Zealand",
-    "Israel",
+    "Damanhour",
     "Saudi Arabia",
     "United Arab Emirates",
   ];
