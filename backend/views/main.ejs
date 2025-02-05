@@ -76,7 +76,11 @@
           <span>Featured city</span>
           <h2><%= featuredCity.name %></h2>
           <div class="rating"><%= resCount %> restaurants</div>
-          <a class="m-btn" href="/city/<%= featuredCity.id %>">Look around</a>
+          <a
+            class="m-btn"
+            href="/city/<%= featuredCity.id %>?cityName=<%= featuredCity.name %>"
+            >Look around</a
+          >
         </div>
         <div class="showcase">
           <span>All cities</span>

@@ -20,7 +20,7 @@ const exploreCities = asyncHandler(async (req, res) => {
 
 const city = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  //console.log(cityName, id);
+  const { cityName } = req.query;
   const cityData = await queries.cityById(id);
   const allres = await Promise.all(
     cityData.map(async (rest) => {
@@ -37,7 +37,7 @@ const city = asyncHandler(async (req, res) => {
   const response = {
     id,
     type: "city",
-    name: "city",
+    name: cityName,
     restaurants: allres,
   };
   res.render("explore_res", { response });
