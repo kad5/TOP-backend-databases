@@ -12,7 +12,7 @@ const exploreCities = asyncHandler(async (req, res) => {
   const allCities = await Promise.all(
     allCitiesQ.map(async (city) => {
       const { resCount, country } = await queries.fetchEach(city);
-      return { name: city.name, resCount, country };
+      return { id: city.id, name: city.name, resCount, country };
     })
   );
   res.render("explore_city", { allCities });

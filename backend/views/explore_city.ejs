@@ -16,11 +16,11 @@
       <hr />
       <div class="card-container">
         <% allCities.forEach(function(city) { %>
-        <div class="card">
+        <a href="/city/<%= city.id %>?cityName=<%= city.name %>" class="card">
           <h2><%= city.name %></h2>
           <p><%= city.country %></p>
           <p><%= city.resCount %> restaurants</p>
-        </div>
+        </a>
         <% }); %>
       </div>
     </div>

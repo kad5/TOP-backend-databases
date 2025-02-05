@@ -16,7 +16,7 @@
       <hr />
       <div class="card-container">
         <% response.restaurants.forEach(function(rest) { %>
-        <div class="card">
+        <a href="/restaurant/<%= rest.id %>" class="card">
           <h2><%= rest.name %></h2>
           <p><%= rest.location %></p>
           <img
@@ -33,7 +33,7 @@
               height="25px"
             />
           </div>
-        </div>
+        </a>
         <% }); %>
       </div>
     </div>
