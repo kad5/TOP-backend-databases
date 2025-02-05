@@ -100,7 +100,7 @@ async function searchTables(searchTerm) {
       const cityData = await citySearch(city);
       return cityData;
     }
-
+    return null;
     const countryRes = await pool.query(
       "SELECT * FROM countries WHERE name = $1",
       [searchTerm]
@@ -162,7 +162,7 @@ async function addReview(data) {
     await pool.query(
       `INSERT INTO reviews (restaurant_id, review_stars, review, reviewer_name, likes, dislikes) 
         VALUES
-        (($1), ($2), ($3), ($4))`,
+        (($1), ($2), ($3), ($4), ($5), ($6))`,
       [id, rating, revBody, revName, 1, 0]
     );
 

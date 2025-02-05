@@ -44,9 +44,11 @@ const city = asyncHandler(async (req, res) => {
 });
 
 const searchDb = asyncHandler(async (req, res) => {
+  console.log("here");
   const { searchTerm } = req.body;
   if (!searchTerm) return;
   const response = await queries.searchTables(searchTerm);
+  if (response === null) res.render("no_data");
   res.render("explore_res", { response });
 });
 
@@ -74,21 +76,21 @@ const addReview = asyncHandler(async (req, res) => {
 
   const data = { id, revName, revBody, rating };
   await queries.addReview(data);
-  return res.redirect(`/restaurants/${id}`);
+  return res.redirect(`/restaurant/${id}`);
 });
 
 const likeReview = asyncHandler(async (req, res) => {
   const { id, review } = req.params;
   if (!id || !review) return;
   await queries.like(review);
-  return res.redirect(`/restaurants/${id}`);
+  return res.redirect(`/restaurant/${id}`);
 });
 
 const dislikeReview = asyncHandler(async (req, res) => {
   const { id, review } = req.params;
   if (!id || !review) return;
   await queries.dislike(review);
-  return res.redirect(`/restaurants/${id}`);
+  return res.redirect(`/restaurant/${id}`);
 });
 
 module.exports = {

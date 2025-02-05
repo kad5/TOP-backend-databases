@@ -14,11 +14,12 @@
           <h1>The Fo<span>odin</span> Project</h1>
           <p>Your gateway to the best restaurants around the globe!</p>
         </div>
-        <form class="search">
+        <form class="search" method="post" action="/search">
           <input
+            name="searchTerm"
             type="text"
             required
-            placeholder="search by a city or country"
+            placeholder="search by a city name"
           />
           <button class="l-btn">Find</button>
         </form>
